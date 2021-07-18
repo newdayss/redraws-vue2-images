@@ -1,0 +1,65 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\wangbo_vendor\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add redraws-vue2-images
+
+PATH: 
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\wangbo_vendor\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\TortoiseGit\bin;C:\Program Files\TortoiseSVN\bin;C:\adb;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\wangbo_vendor\AppData\Local\Microsoft\WindowsApps;C:\Users\wangbo_vendor\AppData\Roaming\npm;D:\webstorm\WebStorm 2019.3\bin;C:\Users\wangbo_vendor\AppData\Local\Programs\Microsoft VS Code\bin;C:\tools\mysql\current\bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  10.15.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, copyfile 'C:\Users\wangbo_vendor\AppData\Local\Yarn\Cache\v6\npm-inherits-2.0.1-b17d08d326b4423e568eff719f91b0b1cbdf69f1-integrity\node_modules\inherits\inherits.js' -> 'D:\Project\redraw-image\node_modules\assert\node_modules\inherits\inherits.js'
+
+npm manifest: 
+  {
+    "name": "redraws-vue2-images",
+    "version": "1.1.2",
+    "description": "redraw image from url to canvas or imgs ,add Fuzzy processing",
+    "main": "dist/redrawImage.min.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "webpack-dev-server --hot --inline",
+  		"build": "webpack --display-error-details --config webpack.config.js"
+    },
+    "keywords": [
+      "redraws","images","wangbo"
+    ],
+    "author": "wangbo3426",
+    "license": "ISC",
+    "devDependencies": {
+  		"babel-core": "^6.26.0",
+  		"babel-loader": "^7.1.2",
+  		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+  		"babel-plugin-transform-runtime": "^6.23.0",
+  		"babel-polyfill": "^6.26.0",
+  		"babel-preset-es2015": "^6.24.1",
+  		"css-loader": "^0.28.7",
+  		"es6-promise": "^4.1.1",
+  		"less": "^2.7.3",
+  		"less-loader": "^4.0.5",
+  		"style-loader": "^0.19.0",
+  		"url-loader": "^0.6.2",
+  		"vue": "^2.5.9",
+  		"vue-hot-reload-api": "^2.2.4",
+  		"vue-html-loader": "^1.2.4",
+  		"vue-loader": "^13.5.0",
+  		"vue-router": "^3.0.1",
+  		"vue-style-loader": "^3.0.3",
+  		"vue-template-compiler": "^2.5.9",
+  		"vuex": "^3.0.1",
+  		"webpack": "^3.9.1",
+  		"webpack-dev-server": "^2.9.5"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

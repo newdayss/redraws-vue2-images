@@ -1,0 +1,137 @@
+<template>
+  <div class="canvasBlur">
+    <canvas id="canvasImage"></canvas>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    url: {
+      type: String,
+      default: '',
+    },
+  },
+  watch: {
+    url: {
+      handler(val) {
+        if (val) {
+          this.$nextTick(() => {
+            this.actionRedraws()
+          })
+        }
+      },
+      immediate: true,
+    },
+  },
+  methods: {
+    actionRedraws() {
+      let cv = document.getElementById('canvasImage')
+      let ctx = cv.getContext('2d')
+      var img = new Image()
+      img.crossOrigin = 'Anonymous'
+      img.src = this.url
+      img.onload = () => {
+        let sw = img.width
+        let sh = img.height
+        cv.width = sw
+        cv.height = sh
+        ctx.drawImage(img, 0, 0, sw, sh, 0, 0, sw, sh)
+        let data = ctx.getImageData(0, 0, sw, sh)
+        let emptyData = this.useBlur(data)
+        ctx.putImageData(emptyData, 0, 0)
+      }
+    },
+    //高斯模糊算法
+    useBlur(imgData) {
+      var pixes = imgData.data
+      var width = imgData.width
+      var height = imgData.height
+      var gaussMatrix = [],
+        gaussSum = 0,
+        x,
+        y,
+        r,
+        g,
+        b,
+        a,
+        i,
+        j,
+        k,
+        len
+
+      var radius = 10
+      var sigma = 6
+
+      a = 1 / (Math.sqrt(2 * Math.PI) * sigma)
+      b = -1 / (2 * sigma * sigma)
+      for (i = 0, x = -radius; x <= radius; x++, i++) {
+        g = a * Math.exp(b * x * x)
+        gaussMatrix[i] = g
+        gaussSum += g
+      }
+
+      for (i = 0, len = gaussMatrix.length; i < len; i++) {
+        gaussMatrix[i] /= gaussSum
+      }
+      for (y = 0; y < height; y++) {
+        for (x = 0; x < width; x++) {
+          r = g = b = a = 0
+          gaussSum = 0
+          for (j = -radius; j <= radius; j++) {
+            k = x + j
+            if (k >= 0 && k < width) {
+              i = (y * width + k) * 4
+              r += pixes[i] * gaussMatrix[j + radius]
+              g += pixes[i + 1] * gaussMatrix[j + radius]
+              b += pixes[i + 2] * gaussMatrix[j + radius]
+              gaussSum += gaussMatrix[j + radius]
+            }
+          }
+          i = (y * width + x) * 4
+          pixes[i] = r / gaussSum
+          pixes[i + 1] = g / gaussSum
+          pixes[i + 2] = b / gaussSum
+          // pixes[i + 3] = a ;
+        }
+      }
+      for (x = 0; x < width; x++) {
+        for (y = 0; y < height; y++) {
+          r = g = b = a = 0
+          gaussSum = 0
+          for (j = -radius; j <= radius; j++) {
+            k = y + j
+            if (k >= 0 && k < height) {
+              i = (k * width + x) * 4
+              r += pixes[i] * gaussMatrix[j + radius]
+              g += pixes[i + 1] * gaussMatrix[j + radius]
+              b += pixes[i + 2] * gaussMatrix[j + radius]
+              gaussSum += gaussMatrix[j + radius]
+            }
+          }
+          i = (y * width + x) * 4
+          pixes[i] = r / gaussSum
+          pixes[i + 1] = g / gaussSum
+          pixes[i + 2] = b / gaussSum
+        }
+      }
+      return imgData
+    },
+  },
+}
+</script>
+
+<style scoped lang="less">
+.canvasBlur {
+  width: 100%;
+  height: 100%;
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+  .fs {
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>
