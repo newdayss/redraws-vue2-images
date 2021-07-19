@@ -1,6 +1,6 @@
 <template>
   <div class="canvasBlur">
-    <canvas id="canvasImage"></canvas>
+    <canvas ref="canvasImages" class="canvasImage"></canvas>
   </div>
 </template>
 
@@ -10,6 +10,26 @@ export default {
     url: {
       type: String,
       default: '',
+    },
+    blurOn: {
+      type: Boolean,
+      default: true,
+    },
+    localhost: {
+      type: String,
+      default: '',
+    },
+    proxyName: {
+      type: String,
+      default: '',
+    },
+    isDev: {
+      type: Boolean,
+      default: false,
+    },
+    httpType: {
+      type: String,
+      default: 'http',
     },
   },
   watch: {
@@ -26,20 +46,42 @@ export default {
   },
   methods: {
     actionRedraws() {
-      let cv = document.getElementById('canvasImage')
+      let cv = this.$refs.canvasImages;
       let ctx = cv.getContext('2d')
       var img = new Image()
-      img.crossOrigin = 'Anonymous'
-      img.src = this.url
+      img.crossOrigin = 'anonymous'
+      let newUrl = ''
+      newUrl = this.url + '?random=' + Math.random()
+      if (this.isDev) {
+        newUrl =
+          '/' +
+          newUrl
+            .split('/')
+            .slice(3)
+            .join('/')
+        let host = this.localhost ? this.localhost : window.location.host
+        let http = this.httpType === 'http' ? 'http://' : 'https://'
+        console.log(http)
+        console.log(this.httpType)
+        if (this.proxyName) {
+          img.src = http + host + '/' + this.proxyName + newUrl
+        } else {
+          img.src = http + host + newUrl
+        }
+      } else {
+        img.src = newUrl
+      }
       img.onload = () => {
         let sw = img.width
         let sh = img.height
         cv.width = sw
         cv.height = sh
         ctx.drawImage(img, 0, 0, sw, sh, 0, 0, sw, sh)
-        let data = ctx.getImageData(0, 0, sw, sh)
-        let emptyData = this.useBlur(data)
-        ctx.putImageData(emptyData, 0, 0)
+        if (this.blurOn) {
+          let data = ctx.getImageData(0, 0, sw, sh)
+          let emptyData = this.useBlur(data)
+          ctx.putImageData(emptyData, 0, 0)
+        }
       }
     },
     //高斯模糊算法
@@ -121,7 +163,7 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .canvasBlur {
   width: 100%;
   height: 100%;

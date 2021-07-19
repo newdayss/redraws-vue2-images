@@ -10,6 +10,10 @@
       :blurOn="blurOn"
       v-if="type === 2"
       :type="type"
+      :localhost="localhost"
+      :proxyName="proxyName"
+      :isDev="isDev"
+      :httpType="httpType"
     ></CanvasBlur>
   </div>
 </template>
@@ -38,12 +42,28 @@ export default {
       type: Number,
       default: 1,
     },
+    localhost:{
+      type: String,
+      default: "",
+    },
+    proxyName:{
+      type: String,
+      default: "",
+    },
+    isDev:{
+      type: Boolean,
+      default: false,
+    },
+    httpType: {
+      type: String,
+      default: 'http',
+    },
   },
   methods: {},
   created() {},
 }
 </script>
-<style scoped lang="less">
+<style scoped lang="scss">
 .redraws-wrapper {
   width: 100%;
   height: 100%;

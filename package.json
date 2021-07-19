@@ -1,6 +1,6 @@
 {
-  "name": "@wangbo3333/redraws-vue2-images",
-  "version": "1.2.0",
+  "name": "redraws-vue2-images",
+  "version": "1.2.3",
   "description": "redraw image from url to canvas or imgs ,add Fuzzy processing",
   "main": "dist/redrawImage.min.js",
   "scripts": {
@@ -9,7 +9,7 @@
 		"build": "webpack --display-error-details --config webpack.config.js"
   },
   "keywords": [
-    "redraws","images","wangbo"
+    "redraws","images","wangbo","security"
   ],
   "author": "wangbo3426",
   "license": "ISC",
