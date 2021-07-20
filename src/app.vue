@@ -1,19 +1,25 @@
 <template>
   <div class="redraws-wrapper">
     <BasicBlur
+      v-if="type === 1"
       :url="url"
       :blurOn="blurOn"
-      v-if="type === 1"
+      :methodType="methodType"
+      :isBase64="isBase64"
+      :base64Api="base64Api"
     ></BasicBlur>
     <CanvasBlur
+      v-if="type === 2"
       :url="url"
       :blurOn="blurOn"
-      v-if="type === 2"
       :type="type"
       :localhost="localhost"
       :proxyName="proxyName"
       :isDev="isDev"
       :httpType="httpType"
+      :methodType="methodType"
+      :isBase64="isBase64"
+      :base64Api="base64Api"
     ></CanvasBlur>
   </div>
 </template>
@@ -66,12 +72,16 @@ export default {
       type: String,
       default: "",
     },
+    methodType:{
+      type: String,
+      default: "get",
+    }
   },
   methods: {},
   created() {},
 }
 </script>
-<style scoped lang="less">
+<style scoped lang="scss">
 .redraws-wrapper {
   width: 100%;
   height: 100%;

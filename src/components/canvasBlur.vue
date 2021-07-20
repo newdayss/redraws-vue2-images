@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   props: {
     url: {
@@ -31,13 +32,17 @@ export default {
       type: String,
       default: 'http',
     },
-    isBase64:{
+    isBase64: {
       type: Boolean,
       default: false,
     },
-    base64Api:{
+    base64Api: {
       type: String,
-      default: "",
+      default: '',
+    },
+    methodType: {
+      type: String,
+      default: 'get',
     },
   },
   watch: {
@@ -52,32 +57,57 @@ export default {
       immediate: true,
     },
   },
+  data() {
+    return {
+      base64MTQ: '',
+    }
+  },
   methods: {
-    actionRedraws() {
-      let cv = this.$refs.canvasImages;
+    getBase64Fn() {
+      if (this.methodType == 'get') {
+        return axios.get(
+          'http://10.111.32.105:10219/whale-openapi/settings/loginInfos'
+        )
+      } else {
+        return axios.post(
+          'http://10.111.32.105:10219/whale-openapi/settings/loginInfos'
+        )
+      }
+    },
+    async actionRedraws() {
+      if (this.isBase64) {
+        let res = await this.getBase64Fn()
+        if (res.data.errorCode == 0 || res.data.code == 0) {
+          this.base64MTQ = res.data.data
+        }
+      }
+      let cv = this.$refs.canvasImages
       let ctx = cv.getContext('2d')
       var img = new Image()
       img.crossOrigin = 'anonymous'
       let newUrl = ''
       newUrl = this.url + '?random=' + Math.random()
-      if (this.isDev) {
-        newUrl =
-          '/' +
-          newUrl
-            .split('/')
-            .slice(3)
-            .join('/')
-        let host = this.localhost ? this.localhost : window.location.host
-        let http = this.httpType === 'http' ? 'http://' : 'https://'
-        console.log(http)
-        console.log(this.httpType)
-        if (this.proxyName) {
-          img.src = http + host + '/' + this.proxyName + newUrl
+      if (!this.isBase64) {
+        if (this.isDev) {
+          newUrl =
+            '/' +
+            newUrl
+              .split('/')
+              .slice(3)
+              .join('/')
+          let host = this.localhost ? this.localhost : window.location.host
+          let http = this.httpType === 'http' ? 'http://' : 'https://'
+          if (this.proxyName) {
+            img.src = http + host + '/' + this.proxyName + newUrl
+          } else {
+            img.src = http + host + newUrl
+          }
         } else {
-          img.src = http + host + newUrl
+          img.src = newUrl
         }
-      } else {
-        img.src = newUrl
+      }
+      if (this.isBase64) {
+        img.src = this.base64MTQ;
       }
       img.onload = () => {
         let sw = img.width
@@ -171,7 +201,7 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .canvasBlur {
   width: 100%;
   height: 100%;

@@ -41,10 +41,12 @@ Not yet
 ```
 - httpType | 默认为http | http:图片模式替换为http模式,https:图片模式替换为https模式
 ****************
-
+#### isBase64
+- 此模式与isdev 相关配置为互斥事件，isBase64模式生效时isdev
+- (接受接口为code为0,data为base64图片的返回值,即{code:0,success:true,data:"***"})
 - isBase64 | 默认为fasle | false:关闭使用接口转换为base64,true:打开使用接口转换为base64 **(循环时慎用)**
 - base64Api | 默认为"" | 后端提供的url转base64接口地址
-
+- methodType | 默认为"get" | base64Api该接口的请求方式
 
 ### author
 ```
