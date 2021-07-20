@@ -44,6 +44,10 @@ export default {
       type: String,
       default: 'get',
     },
+    gauss: {
+      type: Number,
+      default: 1,
+    },
   },
   watch: {
     url: {
@@ -60,22 +64,37 @@ export default {
   data() {
     return {
       base64MTQ: '',
+      urlisBase64:false,
     }
   },
   methods: {
+    isBase64Fn(str) {
+      if (str === '' || str.trim() === '') {
+        return false
+      }
+
+      if (str.indexOf('data:image/') !== -1) {
+        return true
+      } else {
+        return false
+      }
+    },
     getBase64Fn() {
       if (this.methodType == 'get') {
-        return axios.get(
-          this.base64Api
-        )
+        return axios.get(this.base64Api, {
+          params: {
+            url: this.url,
+          },
+        })
       } else {
-        return axios.post(
-          this.base64Api
-        )
+        return axios.post(this.base64Api, {
+          url: this.url,
+        })
       }
     },
     async actionRedraws() {
-      if (this.isBase64) {
+      this.urlisBase64 = this.isBase64Fn(this.url)
+      if (!this.urlisBase64&&this.isBase64) {
         let res = await this.getBase64Fn()
         if (res.data.errorCode == 0 || res.data.code == 0) {
           this.base64MTQ = res.data.data
@@ -87,7 +106,7 @@ export default {
       img.crossOrigin = 'anonymous'
       let newUrl = ''
       newUrl = this.url + '?random=' + Math.random()
-      if (!this.isBase64) {
+      if (!this.isBase64&&!this.urlisBase64) {
         if (this.isDev) {
           newUrl =
             '/' +
@@ -106,8 +125,10 @@ export default {
           img.src = newUrl
         }
       }
-      if (this.isBase64) {
-        img.src = this.base64MTQ;
+      if (this.isBase64&&!this.urlisBase64) {
+        img.src = this.base64MTQ
+      }else{
+        img.src = this.url;
       }
       img.onload = () => {
         let sw = img.width
@@ -140,8 +161,8 @@ export default {
         k,
         len
 
-      var radius = 10
-      var sigma = 6
+      var radius = 20 * this.gauss
+      var sigma = 10 * this.gauss
 
       a = 1 / (Math.sqrt(2 * Math.PI) * sigma)
       b = -1 / (2 * sigma * sigma)

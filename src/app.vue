@@ -20,6 +20,7 @@
       :methodType="methodType"
       :isBase64="isBase64"
       :base64Api="base64Api"
+      :gauss="gauss"
     ></CanvasBlur>
   </div>
 </template>
@@ -75,7 +76,11 @@ export default {
     methodType:{
       type: String,
       default: "get",
-    }
+    },
+    gauss: {
+      type: Number,
+      default: 1,
+    },
   },
   methods: {},
   created() {},

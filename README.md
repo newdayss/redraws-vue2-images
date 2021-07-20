@@ -21,7 +21,7 @@ Not yet
  同时本组件提供传入url转base64接口地址参数,配合后端接口方式实现绘制跨域绘制)**
 
 - blurOn | 默认值true | true:打开模糊，false:关闭模糊
-
+- gauss | 默认值1 | canvas 模糊程度，数值越大程度越高
 ****************
 **本区间为dev调试模式开关，pro环境一般不适用，除非在服务器上配置了相应的ngnix**
 - isdev | 默认为false  | false:关闭dev模式，true：打开dev模式
