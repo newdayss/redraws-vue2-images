@@ -31,6 +31,14 @@ export default {
       type: String,
       default: 'http',
     },
+    isBase64:{
+      type: Boolean,
+      default: false,
+    },
+    base64Api:{
+      type: String,
+      default: "",
+    },
   },
   watch: {
     url: {
@@ -163,7 +171,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 .canvasBlur {
   width: 100%;
   height: 100%;

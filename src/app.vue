@@ -58,12 +58,20 @@ export default {
       type: String,
       default: 'http',
     },
+    isBase64:{
+      type: Boolean,
+      default: false,
+    },
+    base64Api:{
+      type: String,
+      default: "",
+    },
   },
   methods: {},
   created() {},
 }
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 .redraws-wrapper {
   width: 100%;
   height: 100%;
