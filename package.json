@@ -1,6 +1,6 @@
 {
 		"name": "redraws-vue2-images",
-		"version": "1.3.5",
+		"version": "1.4.0",
 		"description": "redraw image from url to canvas or imgs ,add Fuzzy processing",
 		"main": "dist/redrawImage.min.js",
 		"scripts": {
