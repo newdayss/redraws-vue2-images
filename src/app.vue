@@ -81,7 +81,7 @@ export default {
   created() {},
 }
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 .redraws-wrapper {
   width: 100%;
   height: 100%;

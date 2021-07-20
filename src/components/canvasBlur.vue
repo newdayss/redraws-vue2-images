@@ -66,11 +66,11 @@ export default {
     getBase64Fn() {
       if (this.methodType == 'get') {
         return axios.get(
-          'http://10.111.32.105:10219/whale-openapi/settings/loginInfos'
+          this.base64Api
         )
       } else {
         return axios.post(
-          'http://10.111.32.105:10219/whale-openapi/settings/loginInfos'
+          this.base64Api
         )
       }
     },
@@ -201,7 +201,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 .canvasBlur {
   width: 100%;
   height: 100%;
