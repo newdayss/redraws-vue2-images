@@ -161,8 +161,8 @@ export default {
         k,
         len
 
-      var radius = 20 * this.gauss
-      var sigma = 10 * this.gauss
+      var radius = 10 * this.gauss
+      var sigma = 5 * this.gauss
 
       a = 1 / (Math.sqrt(2 * Math.PI) * sigma)
       b = -1 / (2 * sigma * sigma)
