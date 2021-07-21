@@ -127,7 +127,7 @@ export default {
       }
       if (this.isBase64&&!this.urlisBase64) {
         img.src = this.base64MTQ
-      }else{
+      }else if(!this.isBase64&&this.urlisBase64&&!this.isDev){
         img.src = this.url;
       }
       img.onload = () => {
