@@ -11,7 +11,7 @@ npm install redraws-vue2-images
 `<RedrawImage :type="**" :url="**"></RedrawImage>`
 ### gitgub 
 ```
-Not yet
+[https://github.com/newdayss/redraws-vue2-images](https://github.com/newdayss/redraws-vue2-images)
 ```
 
 ### doc
