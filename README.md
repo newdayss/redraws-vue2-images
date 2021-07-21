@@ -11,6 +11,7 @@ npm install redraws-vue2-images
 `<RedrawImage :type="**" :url="**"></RedrawImage>`
 ### gitgub 
 ```
+[简书](http://www.baidu.com "悬停显示文字")
 [https://github.com/newdayss/redraws-vue2-images](https://github.com/newdayss/redraws-vue2-images)
 ```
 
