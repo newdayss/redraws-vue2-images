@@ -1,2 +1,3 @@
-import redrawImage from './app.vue'
-export default redrawImage;
+import RedrawImage from './app.vue'
+RedrawImage.install  = Vue => Vue.component(RedrawImage.name,RedrawImage)
+export default RedrawImage;

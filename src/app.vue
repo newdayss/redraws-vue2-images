@@ -28,7 +28,7 @@
 import BasicBlur from './components/basicBlur.vue'
 import CanvasBlur from './components/canvasBlur.vue'
 export default {
-  name: 'redraws',
+  name: 'RedrawImage',
   components: {
     BasicBlur,
     CanvasBlur,
